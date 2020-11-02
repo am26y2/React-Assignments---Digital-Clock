@@ -25,11 +25,17 @@ class Clock extends React.Component {
       <div className="clock">
         {/* <h3 id="timer">{this.state.date.toLocaleTimeString()}</h3> */}
         <h3 id="timer">
-          {this.state.date.getHours() % 12}
+          {this.state.date.getHours() % 12 <= 9
+            ? "0" + (this.state.date.getHours() % 12)
+            : this.state.date.getHours() % 12}
           {`:`}
-          {this.state.date.getMinutes()}
+          {this.state.date.getMinutes() <= 9
+            ? "0" + this.state.date.getMinutes()
+            : this.state.date.getMinutes()}
           {`:`}
-          {this.state.date.getSeconds()}
+          {this.state.date.getSeconds() <= 9
+            ? "0" + this.state.date.getSeconds()
+            : this.state.date.getSeconds()}{" "}
           {this.state.date.getHours() < 12 ? "AM" : "PM"}
         </h3>
       </div>
