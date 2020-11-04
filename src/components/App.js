@@ -1,54 +1,42 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import "../styles/App.css";
-class Clock extends React.Component {
+
+class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { date: new Date() };
+    this.state = {
+      time: new Date().toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true
+      })
+    };
   }
-
-  componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
   tick() {
     this.setState({
-      date: new Date()
+      time: new Date().toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: true
+      })
     });
   }
 
-  render() {
-    return (
-      <div className="clock">
-        {/* <h3 id="timer">{this.state.date.toLocaleTimeString()}</h3> */}
-        <h3 id="timer">
-          {this.state.date.getHours() % 12 <= 9
-            ? "0" + (this.state.date.getHours() % 12)
-            : this.state.date.getHours() % 12}
-          {`:`}
-          {this.state.date.getMinutes() <= 9
-            ? "0" + this.state.date.getMinutes()
-            : this.state.date.getMinutes()}
-          {`:`}
-          {this.state.date.getSeconds() <= 9
-            ? "0" + this.state.date.getSeconds()
-            : this.state.date.getSeconds()}{" "}
-          {this.state.date.getHours() < 12 ? "AM" : "PM"}
-        </h3>
-      </div>
-    );
+  componentDidMount() {
+    this.intervalID = setInterval(() => this.tick(), 1000);
   }
-}
-
-class App extends Component {
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
   render() {
     return (
-      <>
-        <Clock />
-      </>
+      <div className="App">
+        <div className="Clock">
+          <h3 id="time">{`${this.state.time}`}</h3>
+        </div>
+      </div>
     );
   }
 }
